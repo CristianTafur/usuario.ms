@@ -24,13 +24,14 @@ usuarioCtrl.signin=async(req,res)=>{
         res.status(401).json(data);
     }else{
      
-     await Usuario('usuario').insert(data).then((res)=>{
-            data={};
-            console.log(res);
-           
+     data.fecha=new Date();     
+     await Usuario('usuario').insert(data).then(()=>{
+            data={}; 
             data.status=true; 
+            console.log(data); 
             res.status(200).json(data);    
         }).catch((err)=>{
+            console.error(err); 
             res.status(500).json(err);
         }); 
     }  
